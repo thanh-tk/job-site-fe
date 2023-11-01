@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./src",
+    "moduleResolution": "node",
     "paths": {
       "@common/*": ["components/common/*"]
     },
@@ -14,11 +15,10 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["src", "declaration.d.ts"]
 }
