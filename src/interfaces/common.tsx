@@ -26,4 +26,5 @@ export interface IRoute {
   type?: string;
   exact?: boolean;
   isRoute?: boolean;
+  isDefault?: boolean;
 }
