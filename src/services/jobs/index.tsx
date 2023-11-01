@@ -1,5 +1,5 @@
-import { JobData, QueryParam } from "src/interfaces";
-import { BaseService } from "src/services/base";
+import { JobData, QueryParam } from "interfaces";
+import { BaseService } from "services/base";
 
 
 export default class JobServices extends BaseService<JobData> {

@@ -1,9 +1,8 @@
-import { Skeleton, Spin } from "antd";
 import React, { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
-import Loading from "src/components/common/loading";
+import Loading from "components/common/loading";
 
-import { ContentWrapper } from "src/components/layout/content-wraper";
+import { ContentWrapper } from "components/layout/content-wraper";
 
 const App = () => {
   return (

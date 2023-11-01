@@ -1,5 +1,5 @@
-import { QueryParam } from "src/interfaces";
-import { QueryForList } from "src/ultils/common";
+import { QueryParam } from "interfaces";
+import { QueryForList } from "ultils/common";
 
 export abstract class BaseService<T> {
   constructor(protected readonly apiUrl: string) {}
