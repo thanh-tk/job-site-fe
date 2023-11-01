@@ -1,16 +1,17 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "./features/home/home";
+import { Skeleton, Spin } from "antd";
+import React, { Suspense } from "react";
+import { BrowserRouter } from "react-router-dom";
+import Loading from "src/components/common/loading";
+
+import { ContentWrapper } from "src/components/layout/content-wraper";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} /> */}
-      </Routes>
-    </BrowserRouter>
+    <Suspense fallback={<Loading />}>
+      <BrowserRouter>
+        <ContentWrapper />
+      </BrowserRouter>
+    </Suspense>
   );
 };
 
