@@ -2,7 +2,7 @@ import { Menu, MenuProps } from "antd";
 import Sider from "antd/es/layout/Sider";
 import React, { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import navgationRoutes from "src/constants/navigation";
+import navgationRoutes from "constants/navigation";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -22,7 +22,7 @@ const SideBar = () => {
       label,
     } as MenuItem;
   }
-  const items: MenuItem[] = navgationRoutes.map((item, idx) => {
+  const items: MenuItem[] = navgationRoutes.map((item) => {
     return getItem(item.name, item.path, item.icon);
   });
 

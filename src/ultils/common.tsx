@@ -1,4 +1,4 @@
-import { QueryParam } from "src/interfaces";
+import { QueryParam } from "interfaces";
 
 export const QueryForList = (endpoint: string, queryParams: QueryParam): string => {
   const url = new URL(endpoint);
