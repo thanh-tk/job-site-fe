@@ -16,4 +16,13 @@ export default class JobServices extends BaseService<JobData> {
         throw error;
       });
   }
+  async getJobDetail(id: string): Promise<JobData> {
+    return this.read(``, id)
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }
 }
