@@ -5,7 +5,7 @@ export default class JobServices extends BaseService<JobData> {
   constructor() {
     super(`${process.env.REACT_APP_API_URL}/job`);
   }
-  async fetchJobsList(
+  fetchJobsList(
     query: QueryParam
   ): Promise<QueryDataResponse<JobData[]>> {
     return this.getList(`/jobs`, query)
@@ -16,7 +16,7 @@ export default class JobServices extends BaseService<JobData> {
         throw error;
       });
   }
-  async getJobDetail(id: string): Promise<JobData> {
+  getJobDetail(id: string): Promise<JobData> {
     return this.read(``, id)
       .then((data) => {
         return data;
@@ -25,7 +25,7 @@ export default class JobServices extends BaseService<JobData> {
         throw error;
       });
   }
-  async updateJob(id:string, data: JobData): Promise<JobData> {
+  updateJob(id:string, data: JobData): Promise<JobData> {
     return this.update(``, id, data)
       .then((data) => {
         return data;
@@ -34,7 +34,7 @@ export default class JobServices extends BaseService<JobData> {
         throw error;
       });
   }
-  async createJob(data: JobData): Promise<JobData> {
+  createJob(data: JobData): Promise<JobData> {
     return this.create(`/new`, data)
       .then((data) => {
         return data;

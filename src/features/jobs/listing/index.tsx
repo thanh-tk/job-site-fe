@@ -120,6 +120,7 @@ const Job = () => {
         </div>
         <Card title="Jobs List">
           <Table
+            scroll={{ x: true, y: 500 }}
             columns={columns}
             dataSource={dataSource?.dataList}
             rowKey={(record) => record.id}

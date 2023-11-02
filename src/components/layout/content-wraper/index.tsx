@@ -40,13 +40,13 @@ export const ContentWrapper: React.FC = () => {
       <SideBar />
       <Layout>
         <HeaderBar />
-        <Content className="p-4">
+        <Content className="p-4 overflow-auto ">
           <div>
             <Routes>{listenRoutes(navgationRoutes)}</Routes>
           </div>
         </Content>
         <Footer className="bg-gray-300 text-center">
-          Ant Design ©2023 Created by Ant UED
+         ©2023 Created 
         </Footer>
       </Layout>
     </Layout>
