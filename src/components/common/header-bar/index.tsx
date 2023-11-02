@@ -1,7 +1,12 @@
-import React from 'react'
+import React from "react";
+import { Header } from "antd/es/layout/layout";
+import BreadcrumbCommon from "components/common/breadcrumb";
 
-export const HeaderBar = () => {
+const HeaderBar = () => {
   return (
-    <div>HeaderBar</div>
-  )
-}
+    <Header className="bg-gray-300 !px-4">
+      <BreadcrumbCommon className="my-2" />
+    </Header>
+  );
+};
+export default HeaderBar;

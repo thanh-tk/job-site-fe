@@ -3,7 +3,8 @@
     "baseUrl": "./src",
     "moduleResolution": "node",
     "paths": {
-      "@common/*": ["components/common/*"]
+      // "@common/*": ["components/common/*"],
+      // "@features/*": ["features/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
