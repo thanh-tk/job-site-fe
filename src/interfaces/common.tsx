@@ -7,8 +7,8 @@ export interface QueryParam {
 }
 
 interface Page {
-  number: number;
-  size: number;
+  number: string | number;
+  size: string | number;
 }
 interface Sort {
   col: string;
@@ -27,4 +27,14 @@ export interface IRoute {
   exact?: boolean;
   isRoute?: boolean;
   isDefault?: boolean;
+}
+export interface TablePaging {
+  // dataSource?: T[];
+  currentPage: string | number;
+  pageSize: string | number;
+}
+export interface QueryDataResponse<T> {
+  totalPage: number
+  dataList: T;
+  
 }
