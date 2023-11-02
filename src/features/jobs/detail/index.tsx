@@ -1,24 +1,33 @@
-import { Card, Form } from 'antd';
-import { JobData } from 'interfaces';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import JobServices from 'services/jobs';
-import moment from 'moment';
+import { Card, Form } from "antd";
+import { JobData } from "interfaces";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import JobServices from "services/jobs";
+import moment from "moment";
+import useMessage from "hooks/messageHook";
+
 const JobDetail = () => {
   const jobServices = new JobServices();
   const param = useParams();
   const [jobData, setJobData] = useState<JobData>();
+  const { showMessage, contextHolder } = useMessage();
+  
   useEffect(() => {
     if (param.id) {
       getJobDetail(param.id);
     }
   }, []);
-  async function getJobDetail(id: string) {
-    const responseData = await jobServices.getJobDetail(id);
-    setJobData(responseData);
+  const getJobDetail = (id: string) => {
+    jobServices.getJobDetail(id).then(
+      (responseData) => {
+        setJobData(responseData);
+      },
+      () => showMessage("Job data fetch failure", "error")
+    );
   }
   return (
     <div className="container 2xl:max-w-full flex flex-col gap-4">
+      {contextHolder}
       <Card title="Job Detail">
         <Form layout="vertical">
           <Form.Item label="Title">
@@ -35,37 +44,9 @@ const JobDetail = () => {
             </p>
           </Form.Item>
         </Form>
-
-        {/* <Row justify="start" className="w-full">
-          <Col xs={{ span: 24 }} lg={{ span: 24 }}>
-            <h1 className="font-semibold text-2xl">Title</h1>
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 24 }}>
-            {jobData?.title}
-          </Col>
-        </Row>
-        <Row justify="start" className="w-full">
-          <Col xs={{ span: 24 }} lg={{ span: 24 }}>
-            <h1 className="font-semibold text-2xl">Description</h1>
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 24 }}>
-            <p>{jobData?.description}</p>
-          </Col>
-        </Row>
-        <Row justify="start" className="w-full">
-          <Col xs={{ span: 24 }} lg={{ span: 24 }}>
-            <h1 className="font-semibold text-2xl">Expiry Day</h1>
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 24 }}>
-            <p>
-              {jobData?.expiryDate
-                ? moment(jobData?.expiryDate).format("DD/MM/YYYY")
-                : "--"}
-            </p>
-          </Col>
-        </Row> */}
       </Card>
     </div>
   );
 };
+
 export default JobDetail;

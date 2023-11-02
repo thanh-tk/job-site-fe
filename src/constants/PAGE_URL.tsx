@@ -8,7 +8,7 @@ const PageURL = {
   job: {
     main: "jobs",
     page: {
-      createJob: "/new",
+      createJob: "new",
       editJob: ":id/edit",
       viewJob: ":id",
     },

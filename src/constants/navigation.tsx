@@ -27,6 +27,16 @@ const navgationRoutes: IRoute[] = [
         path: PAGE_URL.job.page.viewJob,
         component: lazy(() => import("../features/jobs/detail")),
       },
+      {
+        name: "Edit",
+        path: PAGE_URL.job.page.editJob,
+        component: lazy(() => import("../features/jobs/form")),
+      },
+      {
+        name: "New",
+        path: PAGE_URL.job.page.createJob,
+        component: lazy(() => import("../features/jobs/form")),
+      },
     ],
   },
 ];

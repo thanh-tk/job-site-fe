@@ -1,4 +1,4 @@
-import { Card, Space, Table } from "antd";
+import { Button, Card, Space, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import useMessage from "hooks/messageHook";
 import {
@@ -8,12 +8,13 @@ import {
   TablePaging,
 } from "interfaces";
 import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import JobServices from "services/jobs";
 
 const Job = () => {
   const [dataSource, setDataSource] = useState<QueryDataResponse<JobData[]>>();
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const { showMessage, contextHolder } = useMessage();
   const [tableData, setTableData] = useState<TablePaging>({
     currentPage: searchParams.get("page[number]") ?? 1,
@@ -50,7 +51,7 @@ const Job = () => {
     },
   ];
 
-  async function getJobsList(tableData: TablePaging) {
+  const getJobsList = (tableData: TablePaging) => {
     const query: QueryParam = {
       page: {
         number: tableData.currentPage,
@@ -62,15 +63,15 @@ const Job = () => {
       },
     };
 
-    try {
-      const jobData = await jobService.fetchJobsList(query);
-      if (jobData) {
-        setDataSource(jobData);
-        setQueryParam(query);
-      }
-    } catch (error) {
-      showMessage("Error Geting Data", "error");
-    }
+    jobService.fetchJobsList(query).then(
+      (reps) => {
+        if (reps) {
+          setDataSource(reps);
+          setQueryParam(query);
+        }
+      },
+      () => showMessage("Error Geting Data", "error")
+    );
   }
 
   const setQueryParam = (query: QueryParam) => {
@@ -106,6 +107,17 @@ const Job = () => {
     <>
       {contextHolder}
       <div className="container 2xl:max-w-full">
+        <div className="flex justify-end my-4">
+          <Button
+            type="primary"
+            className="bg-blue-950"
+            onClick={() => {
+              navigate("new");
+            }}
+          >
+            Create Job
+          </Button>
+        </div>
         <Card title="Jobs List">
           <Table
             columns={columns}

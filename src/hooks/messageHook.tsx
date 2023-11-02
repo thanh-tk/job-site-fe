@@ -1,6 +1,6 @@
 import { message } from "antd";
 import { NoticeType } from "antd/es/message/interface";
-import React, { useState } from "react";
+import React from "react";
 
 const useMessage = () => {
   const [messageApi, contextHolder] = message.useMessage();
