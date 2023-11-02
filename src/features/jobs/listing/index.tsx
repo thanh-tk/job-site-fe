@@ -1,19 +1,20 @@
-import { Table, Pagination, Space } from "antd";
+import { Space, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
-import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import useMessage from "hooks/messageHook";
 import {
   JobData,
-  TablePaging,
-  QueryParam,
   QueryDataResponse,
+  QueryParam,
+  TablePaging,
 } from "interfaces";
+import React, { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import JobServices from "services/jobs";
 
 const Job = () => {
   const [dataSource, setDataSource] = useState<QueryDataResponse<JobData[]>>();
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const { showMessage, contextHolder } = useMessage();
   const [tableData, setTableData] = useState<TablePaging>({
     currentPage: searchParams.get("page[number]") ?? 1,
     pageSize: searchParams.get("page[size]") ?? 10,
@@ -23,7 +24,6 @@ const Job = () => {
 
   useEffect(() => {
     getJobsList(tableData);
-    setQueryParam();
   }, [tableData]);
 
   const columns: ColumnsType<JobData> = [
@@ -61,24 +61,19 @@ const Job = () => {
         dir: "desc",
       },
     };
-    const jobData = await jobService.fetchJobsList(query);
 
-    if (jobData) {
-      setDataSource(jobData);
+    try {
+      const jobData = await jobService.fetchJobsList(query);
+      if (jobData) {
+        setDataSource(jobData);
+        setQueryParam(query);
+      }
+    } catch (error) {
+      showMessage("Error Geting Data", "error");
     }
   }
 
-  const setQueryParam = () => {
-    const query: QueryParam = {
-      page: {
-        number: tableData.currentPage,
-        size: tableData.pageSize,
-      },
-      sort: {
-        col: "createdAt",
-        dir: "desc",
-      },
-    };
+  const setQueryParam = (query: QueryParam) => {
     const urlSearchParams = new URLSearchParams();
 
     Object.keys(query).forEach((key) => {
@@ -102,40 +97,43 @@ const Job = () => {
     const currentUrl = window.location.href.split("?")[0];
     const newUrl = `${currentUrl}?${urlSearchParams.toString()}`;
     setSearchParams(urlSearchParams);
-  
+
     // Push the new URL to the browser history.
     window.history.pushState({}, "", newUrl);
   };
 
   return (
-    <div className="container">
-      <h1 className="font-medium text-2xl">Jobs</h1>
-      <Table
-        columns={columns}
-        dataSource={dataSource?.dataList}
-        rowKey={(record) => record.id}
-        pagination={{
-          showSizeChanger: true,
-          total: dataSource?.totalPage,
-          onChange: (page) => {
-            setTableData((prevState) => {
-              return {
-                ...prevState,
-                currentPage: page,
-              };
-            });
-          },
-          onShowSizeChange: (_, size) => {
-            setTableData((prevState) => {
-              return {
-                ...prevState,
-                pageSize: size,
-              };
-            });
-          },
-        }}
-      />
-    </div>
+    <>
+      {contextHolder}
+      <div className="container 2xl:max-w-full">
+        <h1 className="font-medium text-2xl">Jobs</h1>
+        <Table
+          columns={columns}
+          dataSource={dataSource?.dataList}
+          rowKey={(record) => record.id}
+          pagination={{
+            showSizeChanger: true,
+            total: dataSource?.totalPage,
+            onChange: (page) => {
+              setTableData((prevState) => {
+                return {
+                  ...prevState,
+                  currentPage: page,
+                };
+              });
+            },
+            onShowSizeChange: (_, size) => {
+              setTableData((prevState) => {
+                return {
+                  ...prevState,
+                  pageSize: size,
+                };
+              });
+            },
+          }}
+        />
+      </div>
+    </>
   );
 };
 export default Job;
