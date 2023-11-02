@@ -1,6 +1,10 @@
 import { QueryParam } from "interfaces";
-
-export const QueryForList = (endpoint: string, queryParams: QueryParam): string => {
+import dayjs from "dayjs";
+import moment from "moment";
+export const queryForList = (
+  endpoint: string,
+  queryParams: QueryParam
+): string => {
   const url = new URL(endpoint);
 
   if (queryParams.page) {
@@ -14,4 +18,17 @@ export const QueryForList = (endpoint: string, queryParams: QueryParam): string 
   }
 
   return url.toString();
+};
+
+export const formPatchValues = (data: any) => {
+  let reData = { ...data };
+  console.log("🚀 :: file: common.tsx:22 :: reData:", reData);
+
+  Object.keys(reData).forEach((key) => {
+    const value = data[key];
+    if (moment(value, true).isValid()) {
+      reData = { ...reData, [key]: dayjs(value) };
+    }
+  });
+  return reData;
 };

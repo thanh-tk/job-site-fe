@@ -25,4 +25,22 @@ export default class JobServices extends BaseService<JobData> {
         throw error;
       });
   }
+  async updateJob(id:string, data: JobData): Promise<JobData> {
+    return this.update(``, id, data)
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }
+  async createJob(data: JobData): Promise<JobData> {
+    return this.create(`/new`, data)
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }
 }
