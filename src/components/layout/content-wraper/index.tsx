@@ -1,19 +1,18 @@
 import React from "react";
 import { Layout } from "antd";
-import BreadcrumbCommon from "components/common/breadcrumb";
 import SideBar from "components/common/side-bar";
 import navgationRoutes from "constants/navigation";
 import { IRoute } from "interfaces";
 import { Route, Routes } from "react-router-dom";
+import HeaderBar from "components/common/header-bar";
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 export const ContentWrapper: React.FC = () => {
   const listenRoutes = (routes: IRoute[]) => {
     return routes?.map(
       ({ path = "", component: Comp, children, isDefault }, i) => {
         if (!path) return null;
-
 
         if (children?.length) {
           return (
@@ -40,9 +39,7 @@ export const ContentWrapper: React.FC = () => {
     <Layout className="min-h-screen">
       <SideBar />
       <Layout>
-        <Header className="bg-gray-300">
-          <BreadcrumbCommon className="my-2" />
-        </Header>
+        <HeaderBar />
         <Content className="p-4">
           <div>
             <Routes>{listenRoutes(navgationRoutes)}</Routes>

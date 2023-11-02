@@ -4,7 +4,7 @@ import Loading from "components/common/loading";
 
 import { ContentWrapper } from "components/layout/content-wraper";
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <Suspense fallback={<Loading />}>
       <BrowserRouter>
