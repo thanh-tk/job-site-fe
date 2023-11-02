@@ -45,7 +45,13 @@ const Job = () => {
       render: (_, record) => (
         <Space size="middle">
           <Link to={`${record.id}/edit`}>Edit</Link>
-          <a>Delete</a>
+          <Button type="default" className="bg-red-500"
+            onClick={() => {
+              handleDeleteRecord(record.id);
+            }}
+          >
+            Delete
+          </Button>
         </Space>
       ),
     },
@@ -72,7 +78,7 @@ const Job = () => {
       },
       () => showMessage("Error Geting Data", "error")
     );
-  }
+  };
 
   const setQueryParam = (query: QueryParam) => {
     const urlSearchParams = new URLSearchParams();
@@ -103,6 +109,17 @@ const Job = () => {
     window.history.pushState({}, "", newUrl);
   };
 
+  const handleDeleteRecord = (id: string) => {
+    jobService.deleteJob(id).then(
+      () => {
+        showMessage("Delete Data success", "success");
+        getJobsList(tableData);
+      },
+      () => {
+        () => showMessage("Error deleting data", "error");
+      }
+    );
+  };
   return (
     <>
       {contextHolder}
