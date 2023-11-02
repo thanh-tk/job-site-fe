@@ -1,7 +1,7 @@
 import { QueryDataResponse, QueryParam } from "interfaces";
 import { queryForList } from "ultils/common";
 
-export abstract class BaseService<T> {
+export class BaseService<T> {
   constructor(protected readonly apiUrl: string) {}
 
   async getList(

@@ -4,7 +4,7 @@ import React from 'react'
 const Loading = () => {
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <Spin />
+      <Spin delay={500} className='transition-all'/>
     </div>
   );
 }
