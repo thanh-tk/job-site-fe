@@ -1,4 +1,4 @@
-import { Space, Table } from "antd";
+import { Card, Space, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import useMessage from "hooks/messageHook";
 import {
@@ -106,32 +106,33 @@ const Job = () => {
     <>
       {contextHolder}
       <div className="container 2xl:max-w-full">
-        <h1 className="font-medium text-2xl">Jobs</h1>
-        <Table
-          columns={columns}
-          dataSource={dataSource?.dataList}
-          rowKey={(record) => record.id}
-          pagination={{
-            showSizeChanger: true,
-            total: dataSource?.totalPage,
-            onChange: (page) => {
-              setTableData((prevState) => {
-                return {
-                  ...prevState,
-                  currentPage: page,
-                };
-              });
-            },
-            onShowSizeChange: (_, size) => {
-              setTableData((prevState) => {
-                return {
-                  ...prevState,
-                  pageSize: size,
-                };
-              });
-            },
-          }}
-        />
+        <Card title="Jobs List">
+          <Table
+            columns={columns}
+            dataSource={dataSource?.dataList}
+            rowKey={(record) => record.id}
+            pagination={{
+              showSizeChanger: true,
+              total: dataSource?.totalPage,
+              onChange: (page) => {
+                setTableData((prevState) => {
+                  return {
+                    ...prevState,
+                    currentPage: page,
+                  };
+                });
+              },
+              onShowSizeChange: (_, size) => {
+                setTableData((prevState) => {
+                  return {
+                    ...prevState,
+                    pageSize: size,
+                  };
+                });
+              },
+            }}
+          />
+        </Card>
       </div>
     </>
   );
