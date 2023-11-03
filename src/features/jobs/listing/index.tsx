@@ -1,4 +1,4 @@
-import { Button, Card, Space, Table } from "antd";
+import { Button, Card, Popconfirm, Space, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import useMessage from "hooks/messageHook";
 import {
@@ -10,7 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import JobServices from "services/jobs";
-
+import moment from 'moment';
 const Job = () => {
   const [dataSource, setDataSource] = useState<QueryDataResponse<JobData[]>>();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,7 +29,7 @@ const Job = () => {
 
   const columns: ColumnsType<JobData> = [
     {
-      title: "title",
+      title: "Title",
       dataIndex: "title",
       key: "title",
       render: (text, record) => <Link to={record.id}>{text}</Link>,
@@ -40,18 +40,40 @@ const Job = () => {
       key: "description",
     },
     {
+      title: "Expiry Date",
+      dataIndex: "expiryDate",
+      key: "expiryDate",
+      render: (text) => <span>{moment(text).format("DD/MM/yyyy")}</span>,
+    },
+    {
+      title: "Create Date",
+      dataIndex: "createAt",
+      key: "createAt",
+      render: (text) => <span>{moment(text).format("DD/MM/yyyy")}</span>,
+    },
+    {
       title: "Action",
       key: "action",
       render: (_, record) => (
         <Space size="middle">
           <Link to={`${record.id}/edit`}>Edit</Link>
-          <Button type="default" className="bg-red-500"
-            onClick={() => {
+          <Popconfirm
+            title="Delete the job"
+            description="Are you sure to delete this job?"
+            onConfirm={() => {
               handleDeleteRecord(record.id);
             }}
+            okText="Yes"
+            cancelText="No"
+            okButtonProps={{
+              type: "primary",
+              className: "bg-red-500 text-white",
+            }}
           >
-            Delete
-          </Button>
+            <Button type="primary" className="bg-red-500  text-white">
+              Delete
+            </Button>
+          </Popconfirm>
         </Space>
       ),
     },
@@ -112,11 +134,11 @@ const Job = () => {
   const handleDeleteRecord = (id: string) => {
     jobService.deleteJob(id).then(
       () => {
-        showMessage("Delete Data success", "success");
+        showMessage("Delete job success", "success");
         getJobsList(tableData);
       },
       () => {
-        () => showMessage("Error deleting data", "error");
+        () => showMessage("Error deleting job", "error");
       }
     );
   };
@@ -124,10 +146,10 @@ const Job = () => {
     <>
       {contextHolder}
       <div className="container 2xl:max-w-full">
-        <div className="flex justify-end my-4">
+        <div className="flex justify-end mb-4">
           <Button
             type="primary"
-            className="bg-blue-950"
+            className="bg-blue-500"
             onClick={() => {
               navigate("new");
             }}
