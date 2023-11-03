@@ -1,5 +1,6 @@
 import { Button, Card, DatePicker, Form } from "antd";
 import Input from "antd/es/input/Input";
+import TextArea from "antd/es/input/TextArea";
 import useMessage from "hooks/messageHook";
 import { JobData } from "interfaces";
 import React, { useEffect, useState } from "react";
@@ -64,7 +65,7 @@ const JobForm = () => {
             <Input />
           </Form.Item>
           <Form.Item label="Description" name="description">
-            <Input />
+            <TextArea />
           </Form.Item>
           <Form.Item label="Expiry Day" name="expiryDate">
             <DatePicker format={"DD/MM/YYYY"} />
