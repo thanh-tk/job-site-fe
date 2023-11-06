@@ -1,12 +1,14 @@
-import { QueryParam } from "src/interfaces";
-import { QueryForList } from "src/ultils/common";
+import { QueryDataResponse, QueryParam } from "interfaces";
+import { queryForList } from "ultils/common";
 
-export abstract class BaseService<T> {
+export class BaseService<T> {
   constructor(protected readonly apiUrl: string) {}
 
-  async getList(endpoint: string, query: QueryParam): Promise<T[]> {
-    
-    const url = QueryForList(`${this.apiUrl}${endpoint}`, query);
+  async getList(
+    endpoint: string,
+    query: QueryParam
+  ): Promise<QueryDataResponse<T[]>> {
+    const url = queryForList(`${this.apiUrl}${endpoint}`, query);
     const response = await fetch(url);
 
     const responseData = await response.json();

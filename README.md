@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a front-end React application for a job board. It allows users to view all jobs, edit existing jobs, and create new jobs.
 
 ## Available Scripts
 
@@ -13,21 +13,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### `npm run eject`
 
@@ -44,3 +29,54 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+------------------------------------------------------------
+
+### Features:
+
+* View all jobs (with pagination)
+* Edit existing jobs
+* Create new jobs
+
+### Dependencies:
+
+* React
+* React Router
+* Tailwind
+* dayJs (Ant compatible)
+* Moment
+
+### Getting started:
+
+* Clone this repository
+* Install the dependencies with `npm install`
+* Start the development server with `npm start`
+* Open a web browser and go to `http://localhost:3000`
+
+### Pages:
+
+* `/jobs?{param}`: The homepage, where users can view all jobs.
+* `/jobs/new`: A form where users can create new jobs.
+* `/jobs/{id}/edit`: A form where users can edit existing jobs.
+
+**Edit/Delete buttons:**
+
+Each job ad on the homepage has an "edit" button and a "delete" button.
+* The edit button takes the user to the edit page for that specific job.
+* The delete button deletes the job and refresh the listing page.
+
+**Creating New Jobs:**
+
+To create a new job, users go to the `/jobs/new` page or click add new job button and fill out the form. The form fields include:
+
+* Title
+* Description
+* Expiry date
+
+Once the form is submitted, the new job is created and the user is redirected back to the listing page.
+
+**Editing Existing Jobs:**
+
+To edit an existing job, users go to the `/jobs/{id}/edit` page for that specific job. The edit page has the same form as the create new job page.
+
+Once the form is submitted, the job is updated and the user is redirected back to the listing page.

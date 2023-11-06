@@ -1,14 +1,30 @@
 import { Menu, MenuProps } from "antd";
 import Sider from "antd/es/layout/Sider";
-import React, { memo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import navgationRoutes from "src/constants/navigation";
+import React, { memo, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import navgationRoutes from "constants/navigation";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [selectedKey, setSelectedKey] = useState(navgationRoutes[0].path);
   const navigation = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.length === 1) {
+      setSelectedKey(location.pathname);
+      return;
+    }
+    const currentPath = location.pathname.split("/")[1];
+    if (location.pathname.length > 1) {
+      if (currentPath !== selectedKey) {
+        setSelectedKey(currentPath);
+      }
+    }
+  }, [location]);
+
   function getItem(
     label: React.ReactNode,
     key: React.Key,
@@ -22,7 +38,7 @@ const SideBar = () => {
       label,
     } as MenuItem;
   }
-  const items: MenuItem[] = navgationRoutes.map((item, idx) => {
+  const items: MenuItem[] = navgationRoutes.map((item) => {
     return getItem(item.name, item.path, item.icon);
   });
 
@@ -35,10 +51,13 @@ const SideBar = () => {
       <div className="" />
       <Menu
         theme="dark"
-        defaultSelectedKeys={[navgationRoutes[0].path]}
+        defaultSelectedKeys={[selectedKey ?? navgationRoutes[0].path]}
+        selectedKeys={[selectedKey]}
         mode="inline"
         items={items}
-        onClick={(data) => navigation(data.key)}
+        onClick={(data) => {
+          navigation(data.key);
+        }}
       />
     </Sider>
   );

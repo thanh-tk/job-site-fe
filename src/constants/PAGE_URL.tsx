@@ -1,11 +1,17 @@
 const PageURL = {
-  base: "/",
-  home: "/",
+  base: {
+    main: "/",
+  },
+  home: {
+    main: "/",
+  },
   job: {
-    main: "job-list",
-    createJob: "/new",
-    editJob: ":id/edit",
-    viewJob: ":id",
+    main: "jobs",
+    page: {
+      createJob: "new",
+      editJob: ":id/edit",
+      viewJob: ":id",
+    },
   },
 };
 
